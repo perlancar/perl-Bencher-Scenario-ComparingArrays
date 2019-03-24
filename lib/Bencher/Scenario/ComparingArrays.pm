@@ -58,6 +58,24 @@ our $scenario = {
             code_template => __PACKAGE__.'::_loopstr(<array1>, <array2>)',
             tags => ["str"],
         },
+        {
+            module => 'Storable',
+            func => 'freeze',
+            code_template => 'Storable::freeze(<array1>) eq Storable::freeze(<array2>)',
+            tags => ["int","str"],
+        },
+        {
+            module => 'Sereal::Encoder',
+            func => 'encode_sereal',
+            code_template => 'Sereal::Encoder::encode_sereal(<array1>) eq Sereal::Encoder::encode_sereal(<array2>)',
+            tags => ["int","str"],
+        },
+        {
+            module => 'Cpanel::JSON::XS',
+            func => 'encode_json',
+            code_template => 'Cpanel::JSON::XS::encode_json(<array1>) eq Cpanel::JSON::XS::encode_json(<array2>)',
+            tags => ["int","str"],
+        },
     ],
 
     datasets => [
