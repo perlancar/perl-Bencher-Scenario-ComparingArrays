@@ -9,7 +9,7 @@ use warnings;
 our $scenario = {
     summary => 'Modules that compare arrays',
     modules => {
-        # minimum versions
+        'Data::Cmp' => 0.002,
     },
     participants => [
         {
