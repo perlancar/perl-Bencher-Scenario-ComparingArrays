@@ -6,6 +6,22 @@ package Bencher::Scenario::ComparingArrays;
 use strict;
 use warnings;
 
+sub _loop {
+    my $a1 = shift;
+    my $a2 = shift;
+    return 0 unless @$a1 == @$a2;
+    for (0..$#{$a1}) { return 0 if $a1->[$_] != $a2->[$_] }
+    1;
+}
+
+sub _loopstr {
+    my $a1 = shift;
+    my $a2 = shift;
+    return 0 unless @$a1 == @$a2;
+    for (0..$#{$a1}) { return 0 if $a1->[$_] ne $a2->[$_] }
+    1;
+}
+
 our $scenario = {
     summary => 'Modules that compare arrays',
     modules => {
@@ -33,13 +49,13 @@ our $scenario = {
             tags => ["str"],
         },
         {
-            name => 'loop',
-            code_template => 'my $a1=<array1>; my $a2=<array2>; return 0 unless @$a1 == @$a2; for (0..$#{$a1}) { return 0 if $a1->[$_] != $a2->[$_] } 1',
+            name => 'num eq op loop',
+            code_template => __PACKAGE__.'::_loop(<array1>, <array2>)',
             tags => ["int"],
         },
         {
-            name => 'loop',
-            code_template => 'my $a1=<array1>; my $a2=<array2>; return 0 unless @$a1 == @$a2; for (0..$#{$a1}) { return 0 if $a1->[$_] ne $a2->[$_] } 1',
+            name => 'str eq op loop',
+            code_template => __PACKAGE__.'::_loopstr(<array1>, <array2>)',
             tags => ["str"],
         },
     ],
